@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Schwaben Sentinels – v1.6.0 – Player Availability 2026</title>
+<title>Schwaben Sentinels – v1.6.1 – Player Availability 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -41,6 +41,38 @@
   --gold:#c8a84b;--gold2:#e8c96a;--text:#e8f2ec;--muted:#4a7a5a;--soft:#7aab8a;
   --yes:#1a6b3c;--yes-t:#7ae89e;--maybe:#8a6b1a;--maybe-t:#e8c96a;--no:#7a1a1a;--no-t:#e87a7a;
 }
+/* ── COLOUR THEMES ─────────────────────────────────────────────────────────── */
+:root[data-theme="green"] {
+  --dark:#0b1610;--mid:#152b1e;--deep:#0f2018;--border:#1e3a28;
+  --green:#1a6b3c;--green2:#2d9158;--green-pale:#7ae89e;
+  --gold:#c8a84b;--gold2:#e8c96a;--text:#e8f2ec;--muted:#4a7a5a;--soft:#7aab8a;
+  --yes:#1a6b3c;--yes-t:#7ae89e;--maybe:#8a6b1a;--maybe-t:#e8c96a;--no:#7a1a1a;--no-t:#e87a7a;
+}
+:root[data-theme="skyblue"] {
+  --dark:#070f1a;--mid:#0d1f35;--deep:#091629;--border:#1a3a5c;
+  --green:#0ea5e9;--green2:#38bdf8;--green-pale:#bae6fd;
+  --gold:#38bdf8;--gold2:#7dd3fc;--text:#e0f2fe;--muted:#4a7a9e;--soft:#7ab8e8;
+  --yes:#0369a1;--yes-t:#7dd3fc;--maybe:#0e7490;--maybe-t:#a5f3fc;--no:#7a1a1a;--no-t:#fca5a5;
+}
+:root[data-theme="black"] {
+  --dark:#080808;--mid:#141414;--deep:#0e0e0e;--border:#2a2a2a;
+  --green:#888;--green2:#aaa;--green-pale:#ccc;
+  --gold:#c0c0c0;--gold2:#e0e0e0;--text:#f0f0f0;--muted:#666;--soft:#999;
+  --yes:#1a5c1a;--yes-t:#7ae87a;--maybe:#5c5c1a;--maybe-t:#e8e87a;--no:#7a1a1a;--no-t:#e87a7a;
+}
+:root[data-theme="crimson"] {
+  --dark:#110608;--mid:#1f0d10;--deep:#160a0c;--border:#3a1a1e;
+  --green:#8b1a2a;--green2:#b52235;--green-pale:#f4a0aa;
+  --gold:#c8a84b;--gold2:#e8c96a;--text:#f2e8e8;--muted:#7a4a50;--soft:#b07a80;
+  --yes:#1a6b3c;--yes-t:#7ae89e;--maybe:#8a6b1a;--maybe-t:#e8c96a;--no:#8b1a2a;--no-t:#f4a0aa;
+}
+:root[data-theme="purple"] {
+  --dark:#0d0a14;--mid:#1a1228;--deep:#130e1f;--border:#2d1f4a;
+  --green:#7c3aed;--green2:#9d5cf5;--green-pale:#c4b5fd;
+  --gold:#c8a84b;--gold2:#e8c96a;--text:#ede9f2;--muted:#5a4a7a;--soft:#9070b0;
+  --yes:#1a6b3c;--yes-t:#7ae89e;--maybe:#8a6b1a;--maybe-t:#e8c96a;--no:#7a1a1a;--no-t:#e87a7a;
+}
+
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Outfit',sans-serif;background:var(--dark);color:var(--text);min-height:100vh}
 .hdr{background:linear-gradient(135deg,var(--dark),var(--mid));border-bottom:1px solid var(--border);padding:20px 28px 16px;position:relative;overflow:hidden}
@@ -1001,6 +1033,16 @@ body{font-family:'Outfit',sans-serif;background:var(--dark);color:var(--text);mi
                 <input class="form-input" id="setting-team-name" placeholder="e.g. TSV Großdeinbach" />
               </div>
               <div class="form-field">
+                <label class="form-label">Colour Theme</label>
+                <select class="form-input" id="setting-theme" onchange="previewTheme(this.value)">
+                  <option value="green">🌲 Forest Green (default)</option>
+                  <option value="skyblue">🔵 Sky Blue (jersey)</option>
+                  <option value="black">⚫ Midnight Black</option>
+                  <option value="crimson">🔴 Crimson</option>
+                  <option value="purple">🟣 Royal Purple</option>
+                </select>
+              </div>
+              <div class="form-field">
                 <label class="form-label">Instagram Handle</label>
                 <input class="form-input" id="setting-instagram" placeholder="e.g. schwabensentinels" />
               </div>
@@ -1098,13 +1140,39 @@ body{font-family:'Outfit',sans-serif;background:var(--dark);color:var(--text);mi
           </div>
         </div>
      
-    <div class="app-footer">Created by <span style="color:var(--gold)">iPrade</span> · Schwaben Sentinels · <span style="color:var(--gold)">v1.6.0</span></div>
+    <div class="app-footer">Created by <span style="color:var(--gold)">iPrade</span> · Schwaben Sentinels · <span style="color:var(--gold)">v1.6.1</span></div>
   </div>
 </div>
 
 <div class="saving-badge" id="saving-badge">✓ Saved</div>
 
 <script>
+
+// ─── COLOUR THEME SYSTEM ─────────────────────────────────────────────────────
+var THEMES = {
+  green:   {name:'Forest Green', emoji:'🌲'},
+  skyblue: {name:'Sky Blue',     emoji:'🔵'},
+  black:   {name:'Midnight Black',emoji:'⚫'},
+  crimson: {name:'Crimson',      emoji:'🔴'},
+  purple:  {name:'Royal Purple', emoji:'🟣'}
+};
+
+function applyTheme(themeId){
+  themeId = themeId || 'green';
+  document.documentElement.setAttribute('data-theme', themeId);
+}
+
+function previewTheme(themeId){
+  applyTheme(themeId);
+}
+
+function loadTheme(){
+  var saved = (sharedData.settings&&sharedData.settings.theme)||'green';
+  applyTheme(saved);
+  var sel = document.getElementById('setting-theme');
+  if(sel) sel.value = saved;
+}
+
 function updateInstagramLink(){
   var handle = (sharedData.settings&&sharedData.settings.instagramHandle)||'schwabensentinels';
   var link = document.getElementById('ig-header-link');
@@ -1383,6 +1451,7 @@ async function loadData(){
         sharedData=s.val()||{players:{},pins:{}};
         if(!sharedData.pins)sharedData.pins={};
         populateNameDropdown();
+        loadTheme();
         if(currentPlayer){
           renderMatches('50overs');renderMatches('t20');
           if(currentTab==='overview')renderOverview();
@@ -1420,14 +1489,18 @@ function saveSettings(){
   var teamName=teamNameEl?teamNameEl.value.trim():'';
   var activeSeason=seasonEl?seasonEl.value.trim():'2026';
   var instagramHandle=igEl?igEl.value.trim().replace('@',''):'schwabensentinels';
+  var themeEl=document.getElementById('setting-theme');
+  var theme=themeEl?themeEl.value:'green';
   sharedData.settings={
     warnThreshold:parseInt(document.getElementById('warn-threshold').value)||3,
     defaultGround:dgName,
     defaultGroundIdx:dgIdx,
     teamName:teamName||'TSV Grossdeinbach',
     activeSeason:activeSeason,
-    instagramHandle:instagramHandle
+    instagramHandle:instagramHandle,
+    theme:theme
   };
+  applyTheme(theme);
   updateInstagramLink();
   if(!sharedData.seasons) sharedData.seasons=['2026'];
   if(sharedData.seasons.indexOf(activeSeason)<0) sharedData.seasons.push(activeSeason);
@@ -1620,6 +1693,7 @@ function loginSuccess(){
   document.getElementById('display-name').textContent=displayName;
   showScreen('app-screen');
   initScheduleFromHardcoded();
+  loadTheme();
   updateInstagramLink();
   if(currentPlayer!=='__admin__'){
     renderMatches('50overs');
@@ -5586,6 +5660,7 @@ function renderCareerStats(player){
         sharedData = data;
         if(!sharedData.pins) sharedData.pins = {};
         populateNameDropdown();
+        applyTheme((data.settings&&data.settings.theme)||'green');
       }
     }
   }catch(e){}
